@@ -1,5 +1,10 @@
 package com.gojek.assignment.model;
 
+/**
+ * @author parnik
+ *  Failure response to HTTP Server in case of wrong URL or wrong entity values
+ *
+ */
 public class FailureResponseDTO implements ResponseDTO {
 
 	private String message;

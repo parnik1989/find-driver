@@ -12,6 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+/**
+ * @author parnik
+ * Spring MVC configuration and Spring JDBC Template Configuration class
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.gojek.assignment")
@@ -37,4 +41,5 @@ public class AssignmentWebAppMVCConfig {
         jdbcTemplate.setResultsMapCaseInsensitive(true);
         return jdbcTemplate;
     }
+   
 }

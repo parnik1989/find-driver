@@ -1,10 +1,14 @@
 package com.gojek.assignment.model;
 
+/**
+ * @author parnik
+ * Entity class of Driver table
+ */
 public class Driver {
 	
 	private Long id;
 	private Double longitude;
-	private Double lattitude;
+	private Double latitude;
 	private Double accuracy;
 	/**
 	 * @return the id
@@ -31,18 +35,6 @@ public class Driver {
 		this.longitude = longitude;
 	}
 	/**
-	 * @return the lattitude
-	 */
-	public Double getLattitude() {
-		return lattitude;
-	}
-	/**
-	 * @param lattitude the lattitude to set
-	 */
-	public void setLattitude(Double lattitude) {
-		this.lattitude = lattitude;
-	}
-	/**
 	 * @return the accuracy
 	 */
 	public Double getAccuracy() {
@@ -59,8 +51,20 @@ public class Driver {
 	 */
 	@Override
 	public String toString() {
-		return "Driver [id=" + id + ", longitude=" + longitude + ", lattitude=" + lattitude + ", accuracy=" + accuracy
+		return "Driver [id=" + id + ", longitude=" + longitude + ", lattitude=" + latitude + ", accuracy=" + accuracy
 				+ "]";
+	}
+	/**
+	 * @return the latitude
+	 */
+	public Double getLatitude() {
+		return latitude;
+	}
+	/**
+	 * @param latitude the latitude to set
+	 */
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 	
 	

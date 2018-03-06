@@ -1,10 +1,9 @@
 package com.gojek.assignment.model;
 
-/*
- * DTO class to accept the request from web browser
- * @Parnik
+/**
+ * @author parnik
+ * DTO class to send the request to receive nearby driver's details
  */
-
 public class UserRequestDTO {
 	private Double longitude;
 	private Double lattitude;

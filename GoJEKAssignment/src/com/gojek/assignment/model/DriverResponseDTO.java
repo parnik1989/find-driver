@@ -1,9 +1,11 @@
 package com.gojek.assignment.model;
 
-/*
- * Response DTO for Users which needs list of driver details
- */
 
+/**
+ * @author parnik
+ *  Response DTO of driver class which send the requested data for user
+ *
+ */
 public class DriverResponseDTO implements ResponseDTO{
 
 	private Double longitude;

@@ -2,9 +2,14 @@ package com.gojek.assignment.service;
 
 import com.gojek.assignment.model.DriverRequestDTO;
 
+/**
+ * @author parnik
+ *  Service layer for driver data related operations
+ *
+ */
 public interface DriverService {
 
-	public Long saveDriverDetails(DriverRequestDTO driverDTO);
-	public Long updateDriverLocation(DriverRequestDTO driverDTO);
+	public void saveDriverDetails(DriverRequestDTO driverDTO);
+	public void updateDriverLocation(DriverRequestDTO driverDTO);
 	
 }

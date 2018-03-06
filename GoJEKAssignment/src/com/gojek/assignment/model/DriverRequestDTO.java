@@ -1,14 +1,14 @@
 package com.gojek.assignment.model;
 
-/*
- * DTO Class for Driver 
+
+/**
+ * @author parnik
+ * DTO object of driver to get the request from HTTP server or UI
  */
-
-
 public class DriverRequestDTO {
 
 	private Double longitude;
-	private Double lattitude;
+	private Double latitude;
 	private Double accuracy;
 	private Long userId;
 	/**
@@ -22,18 +22,6 @@ public class DriverRequestDTO {
 	 */
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
-	}
-	/**
-	 * @return the lattitude
-	 */
-	public Double getLattitude() {
-		return lattitude;
-	}
-	/**
-	 * @param lattitude the lattitude to set
-	 */
-	public void setLattitude(Double lattitude) {
-		this.lattitude = lattitude;
 	}
 	/**
 	 * @return the accuracy
@@ -58,6 +46,26 @@ public class DriverRequestDTO {
 	 */
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	/**
+	 * @return the latitude
+	 */
+	public Double getLatitude() {
+		return latitude;
+	}
+	/**
+	 * @param latitude the latitude to set
+	 */
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DriverRequestDTO [longitude=" + longitude + ", latitude=" + latitude + ", accuracy=" + accuracy
+				+ ", userId=" + userId + "]";
 	}
 	
 	
