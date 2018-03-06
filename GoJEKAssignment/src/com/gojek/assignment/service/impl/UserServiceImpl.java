@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.gojek.assignment.model.Driver;
 import com.gojek.assignment.model.DriverResponseDTO;
 import com.gojek.assignment.model.ResponseDTO;
 import com.gojek.assignment.model.UserRequestDTO;
@@ -28,10 +29,14 @@ public class UserServiceImpl implements UserService {
 			userRequestDTO.setLimit(10L);
 		}
 		
-		List<DriverResponseDTO> availableDrivers=driverRepository.getDriversList(userRequestDTO);
+		List<Driver> availableDrivers=driverRepository.getDriversList(userRequestDTO);
 		List<ResponseDTO> responseList= new ArrayList<ResponseDTO>();
-		for(DriverResponseDTO dto: availableDrivers){
-			responseList.add((ResponseDTO)dto);
+		for(Driver dto: availableDrivers){
+			DriverResponseDTO responseDTO= new DriverResponseDTO();
+			responseDTO.setId(dto.getId());
+			responseDTO.setLatitude(dto.getLattitude());
+			responseDTO.setLongitude(dto.getLattitude());
+			responseList.add(responseDTO);
 		}
 		return responseList;
 	}
