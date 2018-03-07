@@ -53,20 +53,41 @@ public class CentralController {
 		logger.debug("Udate Driver details Started. ");
 		List<ResponseDTO> responseList = new ArrayList<ResponseDTO>();
 		ResponseEntity<List<ResponseDTO>> response = null;
+		// Driver Id value must be in between 1 to 50000
 		if (id <= 50000 && id >= 1) {
-			if (driverRequestDTO.getLatitude() < -90 || driverRequestDTO.getLatitude() > 90
-					|| driverRequestDTO.getLongitude() < -90 || driverRequestDTO.getLongitude() > 90) {
-				// Setting up unProccessable Entity response
-				FailureResponseDTO responseDTO = new FailureResponseDTO(
-						"Invalid Location. Co-ordinates should be between +/- 90.");
-				responseList.add(responseDTO);
-				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.UNPROCESSABLE_ENTITY);
-				logger.error("Invalid Location. Co-ordinates should be between +/- 90.");
-			} else {
-				driverRequestDTO.setUserId(id);
-				driverService.updateDriverLocation(driverRequestDTO);
-				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.OK);
-			}
+			// Request object , Longitude, Latitude, Accuracy should not be null
+				if (!ObjectUtils.isEmpty(driverRequestDTO) && !ObjectUtils.isEmpty(driverRequestDTO.getLatitude())
+						&& !ObjectUtils.isEmpty(driverRequestDTO.getLongitude())
+						&& !ObjectUtils.isEmpty(driverRequestDTO.getAccuracy())) {
+					// Longitude and latitude must be between +/-90
+					if (driverRequestDTO.getLatitude() < -90 || driverRequestDTO.getLatitude() > 90
+							|| driverRequestDTO.getLongitude() < -90 || driverRequestDTO.getLongitude() > 90) {
+						// Setting up unProccessable Entity response
+						FailureResponseDTO responseDTO = new FailureResponseDTO(
+								"Invalid Location. Co-ordinates should be between +/- 90.");
+						responseList.add(responseDTO);
+						response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.UNPROCESSABLE_ENTITY);
+						logger.error("Invalid Location. Co-ordinates should be between +/- 90.");
+					} else {
+						driverRequestDTO.setUserId(id);
+						try {
+							driverService.updateDriverLocation(driverRequestDTO);
+							logger.debug("Driver Data Updated successfully");
+							response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.OK);
+						} catch (Exception e) {
+							logger.error(e.getStackTrace());
+							logger.error(e.getMessage());
+							response = new ResponseEntity<List<ResponseDTO>>(responseList,
+									HttpStatus.INTERNAL_SERVER_ERROR);
+						}
+					}
+				} else {
+					FailureResponseDTO responseDTO = new FailureResponseDTO(
+							" Longitude,Latitude and Accuracy should not be null.");
+					responseList.add(responseDTO);
+					response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.NOT_FOUND);
+					logger.error(" Longitude,Latitude and Accuracy should not be null.");
+				}
 		} else {
 			FailureResponseDTO responseDTO = new FailureResponseDTO(
 					"Invalid Id, Valid Ids should be between 1 to 50000.");
@@ -74,6 +95,7 @@ public class CentralController {
 			response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.NOT_FOUND);
 			logger.error("Invalid Id, Valid Ids should be between 1 to 50000.");
 		}
+
 		return response;
 	}
 
@@ -85,9 +107,10 @@ public class CentralController {
 		logger.debug("Find the driver started");
 		List<ResponseDTO> responseList = new ArrayList<ResponseDTO>();
 		ResponseEntity<List<ResponseDTO>> response = null;
-
-		if (!ObjectUtils.isEmpty(userRequestDTO.getLattitude())
+		// Request object , Longitude, Latitude should not be null
+		if (!ObjectUtils.isEmpty(userRequestDTO) && !ObjectUtils.isEmpty(userRequestDTO.getLattitude())
 				&& !ObjectUtils.isEmpty(userRequestDTO.getLongitude())) {
+			// Longitude and latitude must be between +/-90
 			if (userRequestDTO.getLattitude() < -90 || userRequestDTO.getLattitude() > 90
 					|| userRequestDTO.getLongitude() < -90 || userRequestDTO.getLongitude() > 90) {
 				// Setting up unProccessable Entity response
@@ -97,9 +120,16 @@ public class CentralController {
 				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.UNPROCESSABLE_ENTITY);
 				logger.error("Invalid Location. Co-ordinates should be between +/- 90.");
 			} else {
-				responseList = userService.findDrivers(userRequestDTO);
-				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.OK);
-				logger.debug("Driver details fetched successfully. ");
+				try {
+					responseList = userService.findDrivers(userRequestDTO);
+					logger.debug("Driver details fetched successfully. ");
+					response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.OK);
+				} catch (Exception e) {
+					logger.error(e.getStackTrace());
+					logger.error(e.getMessage());
+					response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+
 			}
 		} else {
 			FailureResponseDTO responseDTO = new FailureResponseDTO("Longitude and Latitude must be available");

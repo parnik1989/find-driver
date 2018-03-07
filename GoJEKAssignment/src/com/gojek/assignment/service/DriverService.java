@@ -1,5 +1,7 @@
 package com.gojek.assignment.service;
 
+import org.springframework.dao.DataAccessException;
+
 import com.gojek.assignment.model.DriverRequestDTO;
 
 /**
@@ -9,6 +11,6 @@ import com.gojek.assignment.model.DriverRequestDTO;
  */
 public interface DriverService {
 
-	public void updateDriverLocation(DriverRequestDTO driverDTO);
+	public void updateDriverLocation(DriverRequestDTO driverDTO) throws DataAccessException;
 	
 }

@@ -2,6 +2,7 @@ package com.gojek.assignment.service.impl;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.gojek.assignment.controller.CentralController;
@@ -32,7 +33,7 @@ public class DriverServiceImpl implements DriverService {
 	 * .assignment.model.DriverRequestDTO) updates the driver's current location
 	 */
 	@Override
-	public void updateDriverLocation(DriverRequestDTO driverDTO) {
+	public void updateDriverLocation(DriverRequestDTO driverDTO) throws DataAccessException{
 		logger.debug("Service Layer Update driver location");
 		driverRepository.updateDriversLocation(getDriverEntity(driverDTO));
 	}

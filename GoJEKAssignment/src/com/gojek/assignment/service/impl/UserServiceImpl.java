@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	private final static Logger logger = Logger.getLogger(CentralController.class);
 
 	@Override
-	public List<ResponseDTO> findDrivers(UserRequestDTO userRequestDTO) {
+	public List<ResponseDTO> findDrivers(UserRequestDTO userRequestDTO) throws DataAccessException{
 		// Setting the default radius to 500 meters
 		if (ObjectUtils.isEmpty(userRequestDTO.getRadius())) {
 			logger.debug("Default range set to 500 meters");
