@@ -50,7 +50,7 @@ public class CentralController {
 	@RequestMapping(path = "/drivers/{id}/location", method = RequestMethod.PUT)
 	public ResponseEntity<List<ResponseDTO>> updateDriverLocation(@PathVariable Long id,
 			@RequestBody DriverRequestDTO driverRequestDTO) {
-		logger.debug("Save Driver details Started. ");
+		logger.debug("Udate Driver details Started. ");
 		List<ResponseDTO> responseList = new ArrayList<ResponseDTO>();
 		ResponseEntity<List<ResponseDTO>> response = null;
 		if (id <= 50000 && id >= 1) {
@@ -63,9 +63,9 @@ public class CentralController {
 				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.UNPROCESSABLE_ENTITY);
 				logger.error("Invalid Location. Co-ordinates should be between +/- 90.");
 			} else {
+				driverRequestDTO.setUserId(id);
 				driverService.updateDriverLocation(driverRequestDTO);
 				response = new ResponseEntity<List<ResponseDTO>>(responseList, HttpStatus.OK);
-				logger.debug("Data Saved successfully. ");
 			}
 		} else {
 			FailureResponseDTO responseDTO = new FailureResponseDTO(

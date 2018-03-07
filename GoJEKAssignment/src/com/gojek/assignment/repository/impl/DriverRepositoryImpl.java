@@ -30,11 +30,10 @@ public class DriverRepositoryImpl implements DriverRepository {
 	JdbcTemplate jdbcTemplate;
 
 	private static String GET_DRIVERS_LIST = "SELECT  driver_id as id,longitude,latitude, 0.111111 * DEGREES(ACOS(COS(RADIANS(latitude)) * COS(RADIANS(?)) "
-			+ " * COS(RADIANS(longitude - ?)) + SIN(RADIANS(latitude)) * SIN(RADIANS(?)))) AS distance FROM driver where longitude between "
+			+ " * COS(RADIANS(longitude - ?)) + SIN(RADIANS(latitude)) * SIN(RADIANS(?)))) AS distance FROM gojek.driver where longitude between "
 			+ " ? and ? and latitude between ? and ? ORDER BY distance DESC limit ?";
 
-	private static String SAVE_DRIVERS_DETAILS = "Insert into gojek_assignment.driver (driver_id,longitude,latitude,accuracy,submission_date) "
-			+ " values(?,?,?,?,sysdate())";
+	private static String UPDATE_DRIVERS_DETAILS = "update gojek.driver set longitude=?,latitude=?,accuracy=? where driver_id=? ";
 
 	/*
 	 * (non-Javadoc)
@@ -50,7 +49,7 @@ public class DriverRepositoryImpl implements DriverRepository {
 		logger.debug("Updating drivers data");
 		try {
 			jdbcTemplate.update(
-					"update gojek_assignment.driver set longitude=?,latitude=?,accuracy=? where driver_id=?",
+					UPDATE_DRIVERS_DETAILS,
 					driver.getLongitude(), driver.getLatitude(), driver.getAccuracy(), driver.getId());
 		} catch (Exception e) {
 			logger.error(e.getStackTrace());
@@ -95,27 +94,6 @@ public class DriverRepositoryImpl implements DriverRepository {
 		logger.debug("Driver Details : " + driverList.size());
 		// returning the nearby drivers list
 		return driverList;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.gojek.assignment.repository.DriverRepository#saveDriverDetails(com.
-	 * gojek.assignment.model.Driver) Repository Layer to save drivers details
-	 * in DB before start of driver search or driver location update operation
-	 */
-	@Override
-	public void saveDriverDetails(Driver driver) {
-		logger.debug(" Repository layer save the driver details");
-		try {
-			jdbcTemplate.update(SAVE_DRIVERS_DETAILS, driver.getId(), driver.getLongitude(), driver.getLatitude(),
-					driver.getAccuracy());
-		} catch (Exception e) {
-			logger.error(e.getStackTrace());
-			logger.error(e.getMessage());
-		}
-
 	}
 
 }

@@ -14,6 +14,5 @@ public interface DriverRepository {
 
 	public void updateDriversLocation(Driver driver);
 	public List<DriverResponseDTO> getDriversList(UserRequestDTO userRequestDTO);
-	public void saveDriverDetails(Driver driver);
 	
 }

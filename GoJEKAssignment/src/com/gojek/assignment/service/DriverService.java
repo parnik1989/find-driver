@@ -9,7 +9,6 @@ import com.gojek.assignment.model.DriverRequestDTO;
  */
 public interface DriverService {
 
-	public void saveDriverDetails(DriverRequestDTO driverDTO);
 	public void updateDriverLocation(DriverRequestDTO driverDTO);
 	
 }

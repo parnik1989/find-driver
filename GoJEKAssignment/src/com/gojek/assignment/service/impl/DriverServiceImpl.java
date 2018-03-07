@@ -28,20 +28,6 @@ public class DriverServiceImpl implements DriverService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.gojek.assignment.service.DriverService#saveDriverDetails(com.gojek.
-	 * assignment.model.DriverRequestDTO) Converts DTO to driver entity and
-	 * calls repository method to save the details
-	 */
-	@Override
-	public void saveDriverDetails(DriverRequestDTO driverDTO) {
-		logger.debug("Service Layer Save the driver");
-		driverRepository.saveDriverDetails(getDriverEntity(driverDTO));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
 	 * com.gojek.assignment.service.DriverService#updateDriverLocation(com.gojek
 	 * .assignment.model.DriverRequestDTO) updates the driver's current location
 	 */
